@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowerBox 360 - Luxury Roses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .wrapper {
+            max-width: 1200px; /* Increased for larger screens */
+            background-color: antiquewhite;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #d84315;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px; /* Increased padding for better spacing */
+        }
+
+        header img {
+            height: 80px; /* Adjusted height for balance */
+            width: auto; /* Maintain aspect ratio */
+            transition: all 0.3s ease; 
+        }
+
+        header h2 {
+            color: white;
+            font-size: 28px; /* Slightly larger font size */
+            margin: 0; /* Remove default margin */
+            transition: all 0.3s ease;
+        }
+
+        header h4 {
+            color: white;
+            font-size: 18px; /* Slightly larger font size */
+            margin: 5px 0 0; /* Adjust margin for better spacing */
+            transition: all 0.3s ease;
+        }
+
+        #frm {
+            display: flex;
+            align-items: center;
+        }
+
+        #txtS {
+            border: 1px solid gray;
+            padding: 8px 12px; /* Increased padding for better visual */
+            margin-right: 10px;
+            border-radius: 5px;
+            flex-grow: 1;
+        }
+
+        #btnS {
+            border: none; /* Remove border for cleaner look */
+            padding: 8px 15px; /* Increased padding for better visual */
+            border-radius: 5px;
+            background-color: cadetblue;
+            color: white;
+            cursor: pointer;
+        }
+
+        nav {
+            margin-top: 10px;
+            background-color: #e6e6e6;
+            padding: 10px 0;
+        }
+
+        .menu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .menu li {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu li:hover {
+            background-color: #ddd;
+        }
+
+        .menu li a {
+            color: #333;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .sub-menu {
+            display: none;
+            position: absolute;
+            background-color: #f0f0f0;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .menu li:hover .sub-menu {
+            display: block;
+            top: 100%;
+        }
+
+        .sub-menu li {
+            padding: 8px 15px;
+            white-space: nowrap;
+        }
+
+        .content {
+            padding: 30px; /* Increased padding for better spacing */
+            text-align: center;
+            flex: 1;
+        }
+
+        .featured-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            height: 80px;
+            width: 100%;
+            background-color: #294e79;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .featured-products {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .product {
+            text-align: left;
+            width: calc(33.33% - 20px);
+            margin: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            padding: 20px; /* Increased padding for better visual */
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+            border-radius: 5px; /* Added border-radius to images */
+        }
+
+        .product:hover img {
+            transform: scale(1.05);
+        }
+
+        .product .price {
+            color: #3e569c;
+            font-weight: bold;
+            margin-top: 10px; /* Increased margin for better spacing */
+            font-size: 18px; /* Slightly larger font size */
+        }
+
+        .product .add-to-cart {
+            display: inline-block;
+            padding: 10px 20px; /* Increased padding for better visual */
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px; /* Increased margin for better spacing */
+            transition: background-color 0.3s ease;
+            font-size: 16px; /* Slightly larger font size */
+        }
+
+        .product .add-to-cart:hover {
+            background-color: #3e8e41;
+        }
+
+        /* Hamburger menu */
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .menu.responsive {
+            display: block;
+        }
+
+        .menu.responsive li {
+            display: block;
+            text-align: left;
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 768px) { 
+            .wrapper {
+                width: 90%; 
+            }
+
+            header {
+                flex-direction: column; 
+                height: auto; 
+                padding: 10px 20px; /* Adjusted padding for smaller screens */
+            }
+
+            header img {
+                height: 60px;  /* Further adjusted height for smaller screens */
+                margin-bottom: 10px;
+            }
+
+            header h2 {
+                font-size: 24px; 
+            }
+
+            header h4 {
+                font-size: 16px; 
+                margin-bottom: 15px;
+            }
+
+            .hamburger {
+                display: block; 
+            }
+
+            .menu li {
+                display: none; 
+            }
+
+            .menu.responsive li {
+                display: block;
+            }
+
+            
+            .product {
+                width: calc(50% - 20px); 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product {
+                width: 100%; 
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <img src="data:image/jpeg;base64,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" alt="Flower Logo">
+            <div>
+                <h2>FlowerBox 360</h2>
+                <h4>...to get your daily close of luxury roses!</h4>
+            </div>
+            <div>
+                <form action="" method="post" id="frm">
+                    <input type="text" name="txts" id="txtS" placeholder="Search" required>
+                    <button type="submit" id="btnS">
+                        <i class="fas fa-search"></i> 
+                    </button>
+                </form>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </header>
+
+        <nav></nav>
+            <ul class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Promotion</a></li>
+                <li><a href="#">Gift Baskets</a></li>
+                <li>
+                    <a href="#">Flower Services</a>
+                    <ul class="sub-menu">
+                        <li><a href="#">Wedding</a></li>
+                        <li><a href="#">Events</a></li>
+                        <li><a href="#">Corporate</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h2>Welcome to FlowerBox 360!</h2>
+            <p>We offer a variety of luxury roses and floral arrangements tailored for any occasion. Explore our collection to find the perfect bouquet for weddings, corporate events, or special promotions. Indulge in elegance every day with FlowerBox 360!</p>
+            <img src="https://8384f55340.vws.vegacdn.vn/image/cache/catalog/products/August%202023/bo-hoa-huong-duong-niem-tin.jpg.webp" alt="Luxury Roses" class="featured-image">
+
+            <a href="#" class="btn">Explore Our Collection</a>
+
+            <h3>Featured Products</h3>
+            <div class="featured-products">
+                <div class="product">
+                    <img src="https://8384f55340.vws.vegacdn.vn/image/cache/catalog/products/August%202023/bo-hoa-hong-do-burning-love.jpg.webp" alt="Product 1">
+                    <h4>Eternal Romance</h4>
+                    <p>A dozen long-stemmed red roses, symbolizing everlasting love.</p>
+                    <p class="price">$129.99</p>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+                <div class="product">
+                    <img src="https://vuonhoatuoi.vn/wp-content/uploads/2024/04/bo-hoa-cam-chuong-an-tuong-1097x1536.jpg" alt="Product 2">
+                    <h4>Golden Elegance</h4>
+                    <p>A luxurious bouquet of 24k gold-dipped roses, perfect for a special occasion.</p>
+                    <p class="price">$249.99</p>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+                <div class="product"> 
+                    <img src="https://8384f55340.vws.vegacdn.vn/image/cache/catalog/products/APR_2024/hi-vong-nang-mai-1.jpg.webp" alt="Product 3">
+                    <h4>Whispering Bliss</h4>
+                    <p>A delicate arrangement of pastel-colored roses, conveying serenity and joy.</p>
+                    <p class="price">$89.99</p>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div> 
+            </div> 
+        </div>
+
+        <footer>
+            <p>&copy; 2024 FlowerBox 360 | Designed with love for luxury roses</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.querySelector('.menu');
+            menu.classList.toggle('responsive');
+        }
+    </script>
+</body>
+
+</html>
