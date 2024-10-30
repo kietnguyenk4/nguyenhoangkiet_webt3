@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="../CSS/bootstrap.min.css">
+    <script src="../JS/jquery-3.7.1.min.js"></script>
+    <script src="../JS/bootstrap.min.js"></script>
+    <style>
+        .container {
+            margin-top: 50px;
+            padding: 0;
+        }
+        
+        .modal-header,
+        .modal-footer {
+            justify-content: center;
+            margin: 0;
+        }
+        
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container border">
+        <div class="row">
+            <div class="col-12">
+                <img src="../IMG/HEADER.PNG" alt="" width="100%">
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#"></a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">Đăng ký</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">Đăng nhập</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container">
+                <h1 class="text-center">DANH SÁCH THAM GIA ĐỘI ROBOCON KHOA CNTT</h1>
+                <table class="table table-bordered" id="memberTable">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã thành viên</th>
+                            <th>Họ tên</th>
+                            <th>Lớp</th>
+                            <th>Ngày tham gia</th>
+                            <th>Điện thoại</th>
+                            <th>Email</th>
+                        </tr>
+                        <tr>
+                            <th>1</th>
+                            <th>K16-123456789</th>
+                            <th>Tran Thanh Kha</th>
+                            <th>DHKTPM16ATT</th>
+                            <th>22/02/2022</th>
+                            <th>0909-123-123</th>
+                            <th>thanhkha@iuh.edu.vn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Registration Modal -->
+            <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="registerModalLabel">Đăng ký Thành viên</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="registrationForm">
+                                <div class="form-group">
+                                    <label for="memberCode">Mã thành viên</label>
+                                    <input type="text" class="form-control" id="memberCode" required>
+                                    <small class="error" id="codeError"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Họ tên</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                    <small class="error" id="nameError"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="class">Lớp</label>
+                                    <input type="text" class="form-control" id="class" required>
+                                    <small class="error" id="classError"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="joinDate">Ngày tham gia</label>
+                                    <input type="date" class="form-control" id="joinDate" required>
+                                    <small class="error" id="dateError"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Điện thoại</label>
+                                    <input type="text" class="form-control" id="phone" required>
+                                    <small class="error" id="phoneError"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                    <small class="error" id="emailError"></small>
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="saveMember()">Lưu</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JavaScript for Form Validation -->
+            <script>
+                // cau a
+                let memberCount = 2;
+
+                function validateForm() {
+                    let valid = true;
+
+                    // Clear error messages
+                    $('.error').text('');
+
+                    // cau b
+                    const memberCode = $('#memberCode').val();
+                    const memberCodeRegex = /^K16-\d{9}$/;
+                    if (!memberCodeRegex.test(memberCode)) {
+                        $('#codeError').text('Mã thành viên phải có dạng K16-xxxxxxxxx');
+                        valid = false;
+                    }
+
+                    // cau c
+                    const name = $('#name').val();
+                    const nameRegex = /^[A-Z][a-z]+(\s[A-Z][a-z]+)*$/;
+                    if (!nameRegex.test(name)) {
+                        $('#nameError').text('Họ tên phải viết hoa chữ cái đầu, không chứa số');
+                        valid = false;
+                    }
+
+                    // cau d
+                    const classCode = $('#class').val();
+                    const classRegex = /^[A-Z0-9]{11}$/;
+                    if (!classRegex.test(classCode)) {
+                        $('#classError').text('Lớp phải có 11 ký tự, chỉ bao gồm chữ in hoa và số');
+                        valid = false;
+                    }
+
+                    // cau e
+                    const joinDate = new Date($('#joinDate').val());
+                    const currentDate = new Date();
+                    currentDate.setDate(currentDate.getDate() + 30);
+                    if (joinDate <= currentDate) {
+                        $('#dateError').text('Ngày tham gia phải sau ngày hiện tại 30 ngày');
+                        valid = false;
+                    }
+
+                    // cau f
+                    const phone = $('#phone').val();
+                    const phoneRegex = /^0\d{3}-\d{3}-\d{3}$/;
+                    if (!phoneRegex.test(phone)) {
+                        $('#phoneError').text('Điện thoại phải có dạng 0xxx-xxx-xxx');
+                        valid = false;
+                    }
+
+                    // cau g
+                    const email = $('#email').val();
+                    const emailRegex = /^[a-zA-Z0-9._%+-]+@iuh\.edu\.vn$/;
+                    if (!emailRegex.test(email)) {
+                        $('#emailError').text('Email phải có dạng xxxxx@iuh.edu.vn');
+                        valid = false;
+                    }
+
+                    return valid;
+                }
+
+                // cau h
+                function saveMember() {
+                    if (validateForm()) {
+                        memberCount++;
+                        const memberCode = $('#memberCode').val();
+                        const name = $('#name').val();
+                        const classCode = $('#class').val();
+                        const joinDate = $('#joinDate').val();
+                        const phone = $('#phone').val();
+                        const email = $('#email').val();
+
+                        const row = `<tr>
+                                <td>${memberCount}</td>
+                                <td>${memberCode}</td>
+                                <td>${name}</td>
+                                <td>${classCode}</td>
+                                <td>${joinDate}</td>
+                                <td>${phone}</td>
+                                <td>${email}</td>
+                             </tr>`;
+                        $('#memberTable tbody').append(row);
+                        $('#registerModal').modal('hide');
+                        $('#registrationForm')[0].reset();
+                    }
+                }
+            </script>
+</body>
+
+</html>
