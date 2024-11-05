@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../CSS/bootstrap.min.css">
+    <script src="../JS/jquery-3.7.1.min.js"></script>
+    <script src="../JS/bootstrap.min.js"></script>
+    <style>
+
+
+    </style>
+    <script>
+        $(document).ready(function(){
+            var i=2;
+            $("#btnDK").click(function(){
+                $("#myModal").modal('show')
+            });
+            $("#.close").click(function(){
+                $("#myModal").modal('hide')
+            });
+            function KiemTraMa(){
+                var pattern=/^[0-9]{9}$/;
+                if (!pattern.test($("#txtMa").val())){
+                $("txtMa").html("Sai định dạng");
+            return false;} else {
+                $("txtMa").html("Nhập đúng");
+                return true; }
+            } 
+            $("#txtMa").blur(KiemTraMa);
+            function KiemTraHT(){
+                var pattern=/^[A-Z][a-z]+(\s[A-Z][a-z]+)+$/;
+                if ($("#txtHT").var()==""){
+                    $("#txtHT").html ("Nhập tên không hợp lệ")
+                }
+            }
+
+            
+        })
+    </script>
+</head>
+<body>
+    <div class="container border">
+        <div class="row">
+            <div class="col-12">
+                <h1>DANH SÁCH LƯƠNG NHÂN VIÊN</h1>
+            </div>
+        </div>
+        <div class="row">
+            <nav class="navbar">
+                <ul class="nav nav-navbar navbar-expend">
+                    <li class="nav-item"><a href="#">Trang chủ</a></li>
+                    <li class="nav-item"><a href="#">Thông tin</a></li>
+                    <li class="nav-item"><a href="#" id="btnDK">Cập nhật lương</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row">
+            <table class="table-bordered table-light table-hover table-primay table table-striped fw-bold" id="tbDanhsach">
+                <tr>
+                    <th>STT</th>
+                    <th>Mã nhân sự</th>
+                    <th>Họ tên</th>
+                    <th>Ngày hợp đồng</th>
+                    <th>Chức vụ</th>
+                    <th>Bậc lương</th>
+                </tr>
+                <tr>
+                    <th>1</th>
+                    <th>912345678</th>
+                    <th>Hoàng Minh Vương</th>
+                    <th>12/5/2000</th>
+                    <th>Nhân viên</th>
+                    <th>1.86</th>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal content">
+                        <div class="modal-header">
+                            <h5>THÔNG TIN NHÂN VIÊN</h5>
+                            <button type="button" class="btn-close  close" data-dismiss="modal" aria-lable="close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" class="form-control">
+                                <div class="row form-group p-1">
+                                    <div class="col-12 col-sm-12">
+                                        <label for="">Mã Nhân Viên</label>
+
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <input type="text" class="form-control" id="txtMa" placeholder="Mã nhân sự">
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <span id="tbMa" style="color: red;">(*)</span>
+                                    </div>
+                                </div>
+                                <div class="row form-group p-1">
+                                    <div class="col-12 col-sm-12">
+                                        <label for="">Tên Nhân Viên</label>
+
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <input type="text" class="form-control" id="txtHT" placeholder="Họ tên">
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <span id="tbTen" style="color: red;">(*)</span>
+                                    </div>
+                                </div>
+                                <div class="row form-group p-1">
+                                    <div class="col-12 col-sm-12">
+                                        <label for="">Ngày vào công ty</label>
+
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <input type="date" name="txtNgay" id="txtNgay" class="form-control" >
+                                    </div>
+                                    <div class="col-12 col-sm-12 p-2">
+                                        <span id="tb" style="color: red;">(*)</span>
+                                    </div>
+                                </div>
+                                <div class="row form-group p-1">
+                                    <div class="col-12 col-sm-12">
+                                        <label for="">Chức vụ</label>
+
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <input type="radio" name="chucvu" class="chucvu">Cán bộ quản lí
+                                        <input type="radio" name="chucvu" class="chucvu">Nhân viên
+                                    </div>
+                                    <div class="col-12 col-sm-12 p-2">
+                                        <span id="tbChuc" style="color: red;">(*)</span>
+                                    </div>
+                                </div>
+                                <div class="row form-group p-1">
+                                    <div class="col-12 col-sm-12">
+                                        <label for="">Bậc lương</label>
+
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <select name="luong" id="luong" class="form -control">
+                                            <option value="1.92">Bậc 1</option>
+                                            <option value="1.86">Bậc 2</option>
+                                        </select>
+                                    </div> 
+                                </div>
+                                <div class="row form-group p-1">
+                                    <div class="col-12 col-sm-12">
+                                        <label for="">Hệ số</label>
+
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <input type="date" name="heso" id="heso" class="form-control" disabled>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row p-1">
+                                    <div class="col-sm-2">
+                                        <input type="button" value="Thêm" id="btnSave" class="btn btn-block" style="width: 100%;">
+                                    </div>
+                                </div>
+                                
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-10 ol-sm-10"></div>
+                            <div class="col-2 col-sm-2">
+                                <button class="btn close">Close</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12">
+                <div class="footer">
+                    <p>22689031:Nguyễn Hoàng Kiệt</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
